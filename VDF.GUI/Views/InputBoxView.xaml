@@ -41,7 +41,7 @@
                 Width="100"
                 Margin="5"
                 Command="{Binding OKCommand}"
-                Content="OK"
+                Content="确定"
                 IsDefault="{Binding HasOKButton}"
                 IsVisible="{Binding HasOKButton}" />
             <Button
@@ -49,7 +49,7 @@
                 Width="100"
                 Margin="5"
                 Command="{Binding YesCommand}"
-                Content="Yes"
+                Content="是"
                 IsDefault="{Binding HasYesButton}"
                 IsVisible="{Binding HasYesButton}" />
             <Button
@@ -57,7 +57,7 @@
                 Width="100"
                 Margin="5"
                 Command="{Binding NoCommand}"
-                Content="No"
+                Content="否"
                 IsCancel="{Binding HasNoButton}"
                 IsVisible="{Binding HasNoButton}" />
             <Button
@@ -65,7 +65,7 @@
                 Width="100"
                 Margin="5"
                 Command="{Binding CancelCommand}"
-                Content="Cancel"
+                Content="取消"
                 IsCancel="{Binding HasCancelButton}"
                 IsVisible="{Binding HasCancelButton}" />
         </Grid>
