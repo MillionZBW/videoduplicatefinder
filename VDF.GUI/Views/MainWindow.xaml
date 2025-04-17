@@ -16,10 +16,10 @@
     xmlns:presenters="clr-namespace:Avalonia.Controls.Presenters;assembly=Avalonia.Controls"
     xmlns:vm="clr-namespace:VDF.GUI.ViewModels;assembly=VDF.GUI"
     x:Name="MainWindow"
-    Title="视频重复查找器-跨平台"
+    Title="视频查重器"
     Width="1020"
     Height="950"
-    d:DesignHeight="750"
+    d:DesignHeight="1200"
     d:DesignWidth="900"
     BorderBrush="{actipro:ThemeResource ButtonForegroundBrush}"
     BorderThickness="1"
@@ -718,7 +718,7 @@
                                             <DataGridTemplateColumn Width="1*" IsVisible="{Binding Source={x:Static Settings:SettingsFile.Instance}, Path=ShowDurationColumn}">
                                                 <DataGridTemplateColumn.Header>
                                                     <StackPanel>
-                                                        <TextBlock Text="持续时间 / 类型" />
+                                                        <TextBlock Text="时长 / 类型" />
                                                         <TextBlock Text="清晰度" />
                                                         <TextBlock Text="大小" />
                                                         <TextBlock Text="创建日期" />
@@ -771,7 +771,7 @@
                                                 <DataGridTemplateColumn.Header>
                                                     <StackPanel>
                                                         <TextBlock Text="格式" />
-                                                        <TextBlock Text="Fps" />
+                                                        <TextBlock Text="帧率" />
                                                         <TextBlock Text="比特率" />
                                                         <TextBlock Text=" " />
                                                     </StackPanel>
@@ -882,7 +882,7 @@
                                                                 <TextBlock
                                                                     Margin="5,0,0,0"
                                                                     VerticalAlignment="Center"
-                                                                    Text="从硬盘中删除 (优先回收站)" />
+                                                                    Text="删除至回收站" />
                                                             </StackPanel>
                                                         </MenuItem.Header>
                                                     </MenuItem>
@@ -897,7 +897,7 @@
                                                                 <TextBlock
                                                                     Margin="5,0,0,0"
                                                                     VerticalAlignment="Center"
-                                                                    Text="从硬盘中永久删除" />
+                                                                    Text="永久删除" />
                                                             </StackPanel>
                                                         </MenuItem.Header>
                                                     </MenuItem>
@@ -1202,46 +1202,46 @@
                                                         ToolTip.Tip="如果激活，则每次扫描结果列表更改时都会创建备份" />
                                                     <CheckBox
                                                         VerticalAlignment="Center"
-                                                        Content="Use native Ffmpeg binding"
+                                                        Content="使用原生FFmpeg"
                                                         IsChecked="{Binding Source={x:Static Settings:SettingsFile.Instance}, Path=UseNativeFfmpegBinding}"
                                                         IsThreeState="False"
-                                                        ToolTip.Tip="If activated it will call ffmpeg functions natively instead of spawning a new ffmpeg.exe process. This is MUCH(!!) faster. WARNING: You must use the latest SHARED and STABLE ffmpeg version. If something goes wrong then whole VDF will crash." />
+                                                        ToolTip.Tip="如果启用该功能，程序将直接调用FFmpeg原生函数，而非启动新的ffmpeg.exe进程。这将大幅提升处理速度（！！）。警告：您必须使用最新的共享版（SHARED）且稳定的（STABLE）FFmpeg版本。若发生异常，整个VDF系统将崩溃。" />
                                                     <CheckBox
                                                         VerticalAlignment="Center"
-                                                        Content="Ignore Black Pixels"
+                                                        Content="忽略黑色像素"
                                                         IsChecked="{Binding Source={x:Static Settings:SettingsFile.Instance}, Path=IgnoreBlackPixels}"
                                                         IsThreeState="False"
-                                                        ToolTip.Tip="Skip black pixels when comparing thumbnails. Lowers the chance for 'false positives' if thumbnails contain too much dark and raises the chance to detect duplicates if one of the thumbnails have black bars and the others not. In rare scenarios this might raise the 'false positives' instead. Slows down the scan speed by a bit." />
+                                                        ToolTip.Tip="在比较缩略图时跳过黑色像素。若缩略图包含过多暗色区域，可降低"误判"概率；当某些缩略图带有黑边而其他没有时，则能提高重复项检测准确率。在极少数情况下，这反而可能增加"误判"概率。该操作会略微降低扫描速度。" />
                                                     <CheckBox
                                                         VerticalAlignment="Center"
-                                                        Content="Ignore White Pixels"
+                                                        Content="忽略白色像素"
                                                         IsChecked="{Binding Source={x:Static Settings:SettingsFile.Instance}, Path=IgnoreWhitePixels}"
                                                         IsThreeState="False"
-                                                        ToolTip.Tip="Skip white pixels when comparing thumbnails. Lowers the chance for 'false positives' if thumbnails contain too much brightness and raises the chance to detect duplicates if one of the thumbnails have white bars and the others not. In rare scenarios this might raise the 'false positives' instead. Slows down the scan speed by a bit." />
+                                                        ToolTip.Tip="在比较缩略图时跳过白色像素。若缩略图中亮度过高，可降低"误判"概率；若某个缩略图带有白色边框而其他没有，则能提高重复项检测的准确率。在极少数情况下，此操作反而可能导致"误判"增加。扫描速度会略微降低。" />
                                                     <CheckBox
                                                         VerticalAlignment="Center"
-                                                        Content="Compare Horizontally Flipped"
+                                                        Content="比较水平翻转"
                                                         IsChecked="{Binding Source={x:Static Settings:SettingsFile.Instance}, Path=CompareHorizontallyFlipped}"
                                                         IsThreeState="False"
-                                                        ToolTip.Tip="Select this option if your video collection might contain horizontally flipped videos and you want them to be detected reliably. Slows down the scan speed by a bit." />
+                                                        ToolTip.Tip="如果您的视频集合可能包含水平翻转的视频，并且希望可靠地检测到此选项，请选择此选项。,将扫描速度降低一点。" />
                                                     <CheckBox
                                                         VerticalAlignment="Center"
-                                                        Content="Save results on exit"
+                                                        Content="保存结果并退出"
                                                         IsChecked="{Binding Source={x:Static Settings:SettingsFile.Instance}, Path=AskToSaveResultsOnExit}"
                                                         IsThreeState="False"
-                                                        ToolTip.Tip="If checked you will be asked if you want to save the results when you close VDF" />
+                                                        ToolTip.Tip="勾选后关闭VDF时会提示保存结果" />
                                                     <CheckBox
                                                         VerticalAlignment="Center"
-                                                        Content="Scan against non-existing files"
+                                                        Content="扫描不存在的文件"
                                                         IsChecked="{Binding Source={x:Static Settings:SettingsFile.Instance}, Path=IncludeNonExistingFiles}"
                                                         IsThreeState="False"
-                                                        ToolTip.Tip="If checked non-existing files which have all necessary information are included" />
+                                                        ToolTip.Tip="如果勾选此项，系统将包含所有信息完整但实际不存在的文件" />
                                                     <CheckBox
                                                         VerticalAlignment="Center"
-                                                        Content="Scan against entire database"
+                                                        Content="扫描整个数据库"
                                                         IsChecked="{Binding Source={x:Static Settings:SettingsFile.Instance}, Path=ScanAgainstEntireDatabase}"
                                                         IsThreeState="False"
-                                                        ToolTip.Tip="If checked scan is also performed against your entire database unless database files are excluded otherwise (i.e. exclude list, file path must contain, etc)" />
+                                                        ToolTip.Tip="若勾选此项，除非数据库文件被明确排除（如通过排除列表、文件路径必须包含等条件），否则将扫描整个数据库。" />
                                                 </StackPanel>
                                                 <StackPanel Grid.Column="1" Margin="15,5,0,0">
                                                     <TextBlock VerticalAlignment="Center" Text="Percent:" />
@@ -1252,9 +1252,9 @@
                                                         FormatString="\{0\}%"
                                                         Maximum="100"
                                                         Minimum="1"
-                                                        ToolTip.Tip="Minimum percentage that thumbnails must match before they are considered duplicates"
+                                                        ToolTip.Tip="缩略图被视为重复项前必须达到的最低匹配百分比"
                                                         Value="{Binding Source={x:Static Settings:SettingsFile.Instance}, Path=Percent}" />
-                                                    <TextBlock VerticalAlignment="Center" Text="Duration Difference:" />
+                                                    <TextBlock VerticalAlignment="Center" Text="时长差异:" />
                                                     <NumericUpDown
                                                         Width="200"
                                                         HorizontalAlignment="Left"
@@ -1262,76 +1262,76 @@
                                                         FormatString="\{0\}%"
                                                         Maximum="100"
                                                         Minimum="0"
-                                                        ToolTip.Tip="Only scan videos against each other where the duration is not bigger/smaller than X %"
+                                                        ToolTip.Tip="仅扫描持续时间相差不超过 X %的视频"
                                                         Value="{Binding Source={x:Static Settings:SettingsFile.Instance}, Path=PercentDurationDifference}" />
                                                     <TextBlock
                                                         Margin="0,5,0,0"
                                                         VerticalAlignment="Center"
-                                                        Text="Thumbnails:" />
+                                                        Text="缩略图:" />
                                                     <NumericUpDown
                                                         Width="200"
                                                         HorizontalAlignment="Left"
                                                         VerticalAlignment="Center"
                                                         Maximum="100"
                                                         Minimum="1"
-                                                        ToolTip.Tip="Number of thumbnails generated per file. This only applies to video files. A high number means that the scan takes longer but also the chance of a 'false positive' decreases."
+                                                        ToolTip.Tip="每个文件生成的缩略图数量（仅适用于视频文件）。数值越高，扫描耗时越长，但误判概率越低。."
                                                         ValueChanged="Thumbnails_ValueChanged"
                                                         Value="{Binding Source={x:Static Settings:SettingsFile.Instance}, Path=Thumbnails}" />
                                                     <TextBlock
                                                         Margin="0,5,0,0"
                                                         VerticalAlignment="Center"
-                                                        Text="Max Degree Of Parallelism:" />
+                                                        Text="可同时执行的任务数上限:" />
                                                     <NumericUpDown
                                                         Width="200"
                                                         HorizontalAlignment="Left"
                                                         VerticalAlignment="Center"
                                                         Maximum="100"
                                                         Minimum="-1"
-                                                        ToolTip.Tip="Limits the amount of concurrent tasks. A value of -1 leaves it up to the system to decide, a value of 1 is most stable."
+                                                        ToolTip.Tip="限制并行任务的数量。值为 -1 表示由系统自动决定，值为 1 时稳定性最高。"
                                                         Value="{Binding Source={x:Static Settings:SettingsFile.Instance}, Path=MaxDegreeOfParallelism}" />
-                                                    <TextBlock VerticalAlignment="Center" Text="Custom FF Arguments:" />
+                                                    <TextBlock VerticalAlignment="Center" Text="自定义FFmpeg参数:" />
                                                     <TextBox
                                                         VerticalAlignment="Center"
                                                         Text="{Binding Source={x:Static Settings:SettingsFile.Instance}, Path=CustomFFArguments}"
-                                                        ToolTip.Tip="FF(mpeg/probe) arguments passed to the end of the internal arguments. Most users can leave this empty." />
+                                                        ToolTip.Tip="如需添加特殊FFmpeg参数请在此输入，多数情况无需设置" />
                                                     <StackPanel Orientation="Horizontal">
                                                         <TextBlock
                                                             VerticalAlignment="Center"
                                                             FontSize="14"
-                                                            Text="Hardware Acceleration:" />
+                                                            Text="硬件加速:" />
                                                         <Button
                                                             Margin="10,0,0,0"
                                                             Classes="hyperlink"
                                                             Command="{Binding OpenHWInfoLinkCommand}"
-                                                            Content="More Info" />
+                                                            Content="更多信息" />
                                                     </StackPanel>
                                                     <ComboBox
                                                         x:Name="ComboboxHardwareAccelerationMode"
                                                         VerticalAlignment="Center"
                                                         ItemsSource="{Binding HardwareAccelerationModes}"
                                                         SelectedItem="{Binding Source={x:Static Settings:SettingsFile.Instance}, Path=HardwareAccelerationMode}"
-                                                        ToolTip.Tip="Hardware acceleration mode of ffmpeg" />
+                                                        ToolTip.Tip="FFmpeg硬件加速模式" />
                                                     <TextBlock
                                                         VerticalAlignment="Center"
                                                         FontSize="14"
-                                                        Text="Custom Commands:" />
+                                                        Text="自定义命令:" />
                                                     <ComboBox
                                                         VerticalAlignment="Center"
                                                         ItemsSource="{Binding CustomCommandList}"
                                                         SelectedItem="{Binding SelectedCustomCommand}"
-                                                        ToolTip.Tip="Enter your own commands to open single or multiple files." />
+                                                        ToolTip.Tip="自定义文件打开命令（支持单文件/多文件）" />
                                                     <TextBox
                                                         VerticalAlignment="Center"
                                                         Text="{Binding SelectedCustomCommandValue}"
-                                                        ToolTip.Tip="E.g.: 'nemo --tabs %f', where '%f' is the placeholder for the file(s)" />
+                                                        ToolTip.Tip="例如: 'nemo --tabs %f', '%f' 用作文件占位符" />
                                                     <TextBlock
                                                         VerticalAlignment="Center"
                                                         FontSize="14"
-                                                        Text="Custom Database Folder:" />
+                                                        Text="自定义数据库目录:" />
                                                     <TextBox
                                                         VerticalAlignment="Center"
                                                         Text="{Binding Source={x:Static Settings:SettingsFile.Instance}, Path=CustomDatabaseFolder}"
-                                                        ToolTip.Tip="Specify a custom database folder. Otherwise it uses the current VDF folder." />
+                                                        ToolTip.Tip="自定义数据库目录（如未指定，则默认使用当前VDF文件夹）" />
                                                 </StackPanel>
                                             </Grid>
                                             <Grid
@@ -1342,7 +1342,7 @@
                                                 <TextBlock
                                                     Margin="5,0,0,2"
                                                     FontWeight="Bold"
-                                                    Text="Search Directories" />
+                                                    Text="搜索目录" />
                                                 <Grid Grid.Row="1" RowDefinitions="Auto, *, Auto">
                                                     <Menu Grid.Row="0" MinHeight="30">
                                                         <MenuItem Command="{Binding AddIncludesToListCommand}">
@@ -1356,7 +1356,7 @@
                                                                     <TextBlock
                                                                         Margin="5,0,0,0"
                                                                         VerticalAlignment="Center"
-                                                                        Text="Add" />
+                                                                        Text="添加" />
                                                                 </StackPanel>
                                                             </MenuItem.Header>
                                                         </MenuItem>
@@ -1371,7 +1371,7 @@
                                                                     <TextBlock
                                                                         Margin="5,0,0,0"
                                                                         VerticalAlignment="Center"
-                                                                        Text="Remove" />
+                                                                        Text="移除" />
                                                                 </StackPanel>
                                                             </MenuItem.Header>
                                                         </MenuItem>
@@ -1386,7 +1386,7 @@
                                                                     <TextBlock
                                                                         Margin="5,0,0,0"
                                                                         VerticalAlignment="Center"
-                                                                        Text="Clear All" />
+                                                                        Text="全部移除" />
                                                                 </StackPanel>
                                                             </MenuItem.Header>
                                                         </MenuItem>
@@ -1401,14 +1401,14 @@
                                                         Grid.Row="2"
                                                         Margin="5"
                                                         Foreground="{actipro:ThemeResource ControlBackgroundBrushSolidWarning}"
-                                                        Text="Hint: You can also add folders with drag &amp; drop" />
+                                                        Text="提示：您也可以通过拖放文件夹来添加" />
                                                 </Grid>
                                                 <TextBlock
                                                     Grid.Row="0"
                                                     Grid.Column="1"
                                                     Margin="15,0,0,2"
                                                     FontWeight="Bold"
-                                                    Text="Exclude Directories" />
+                                                    Text="排除目录" />
                                                 <Grid
                                                     Grid.Row="1"
                                                     Grid.Column="1"
@@ -1426,7 +1426,7 @@
                                                                     <TextBlock
                                                                         Margin="5,0,0,0"
                                                                         VerticalAlignment="Center"
-                                                                        Text="Add" />
+                                                                        Text="添加" />
                                                                 </StackPanel>
                                                             </MenuItem.Header>
                                                         </MenuItem>
@@ -1441,7 +1441,7 @@
                                                                     <TextBlock
                                                                         Margin="5,0,0,0"
                                                                         VerticalAlignment="Center"
-                                                                        Text="Remove" />
+                                                                        Text="移除" />
                                                                 </StackPanel>
                                                             </MenuItem.Header>
                                                         </MenuItem>
@@ -1456,7 +1456,7 @@
                                                                     <TextBlock
                                                                         Margin="5,0,0,0"
                                                                         VerticalAlignment="Center"
-                                                                        Text="Clear All" />
+                                                                        Text="全部移除" />
                                                                 </StackPanel>
                                                             </MenuItem.Header>
                                                         </MenuItem>
@@ -1471,7 +1471,7 @@
                                                         Grid.Row="2"
                                                         Margin="5"
                                                         Foreground="{actipro:ThemeResource ControlBackgroundBrushSolidWarning}"
-                                                        Text="Hint: You can also add folders with drag &amp; drop" />
+                                                        Text="提示：您也可以通过拖放文件夹来添加" />
                                                 </Grid>
                                             </Grid>
                                         </Grid>
@@ -1482,7 +1482,7 @@
                                         <TextBlock
                                             VerticalAlignment="Center"
                                             FontSize="12"
-                                            Text="Files" />
+                                            Text="文件" />
                                     </TabItem.Header>
                                     <Grid
                                         ColumnDefinitions="Auto, Auto, Auto, Auto, *"
@@ -1493,13 +1493,13 @@
                                             Grid.ColumnSpan="4"
                                             Margin="10"
                                             Foreground="{actipro:ThemeResource ControlBackgroundBrushEmphasizedDanger}"
-                                            Text="Note: These settings apply when files are added to database, not when comparing files against duplicates" />
+                                            Text="注意：这些设置仅在将文件添加到数据库时生效，而非进行重复文件比对时。" />
                                         <CheckBox
                                             x:Name="CheckboxFilterByFileSize"
                                             Grid.Row="1"
                                             Grid.Column="0"
                                             VerticalAlignment="Center"
-                                            Content="File Size (MB):"
+                                            Content="文件大小(MB):"
                                             IsChecked="{Binding Source={x:Static Settings:SettingsFile.Instance}, Path=FilterByFileSize}"
                                             IsThreeState="False" />
                                         <NumericUpDown
@@ -1517,7 +1517,7 @@
                                             Grid.Column="2"
                                             Margin="10,0"
                                             VerticalAlignment="Center"
-                                            Text="to" />
+                                            Text="到" />
                                         <NumericUpDown
                                             Grid.Row="1"
                                             Grid.Column="3"
@@ -1533,7 +1533,7 @@
                                             Grid.Row="2"
                                             Grid.Column="0"
                                             VerticalAlignment="Top"
-                                            Content="File Path contains:"
+                                            Content="文件路径包含:"
                                             IsChecked="{Binding Source={x:Static Settings:SettingsFile.Instance}, Path=FilterByFilePathContains}"
                                             IsThreeState="False" />
                                         <Grid
@@ -1556,7 +1556,7 @@
                                                             <TextBlock
                                                                 Margin="5,0,0,0"
                                                                 VerticalAlignment="Center"
-                                                                Text="Add" />
+                                                                Text="添加" />
                                                         </StackPanel>
                                                     </MenuItem.Header>
                                                 </MenuItem>
@@ -1571,7 +1571,7 @@
                                                             <TextBlock
                                                                 Margin="5,0,0,0"
                                                                 VerticalAlignment="Center"
-                                                                Text="Remove" />
+                                                                Text="移除" />
                                                         </StackPanel>
                                                     </MenuItem.Header>
                                                 </MenuItem>
@@ -1586,14 +1586,14 @@
                                             <TextBlock
                                                 Grid.Row="2"
                                                 Foreground="{actipro:ThemeResource ControlBackgroundBrushSolidWarning}"
-                                                Text="Note: Supports the following wildcards: '*' and '?'. The backslash character '\' escapes." />
+                                                Text="说明：支持以下通配符: '*' 和 '?'. '\' 用作转义符." />
                                         </Grid>
                                         <CheckBox
                                             x:Name="CheckboxFilterByFilePathNotContains"
                                             Grid.Row="3"
                                             Grid.Column="0"
                                             VerticalAlignment="Top"
-                                            Content="File Path does NOT contain:"
+                                            Content="文件路径不包含:"
                                             IsChecked="{Binding Source={x:Static Settings:SettingsFile.Instance}, Path=FilterByFilePathNotContains}"
                                             IsThreeState="False" />
                                         <Grid
@@ -1616,7 +1616,7 @@
                                                             <TextBlock
                                                                 Margin="5,0,0,0"
                                                                 VerticalAlignment="Center"
-                                                                Text="Add" />
+                                                                Text="添加" />
                                                         </StackPanel>
                                                     </MenuItem.Header>
                                                 </MenuItem>
@@ -1631,7 +1631,7 @@
                                                             <TextBlock
                                                                 Margin="5,0,0,0"
                                                                 VerticalAlignment="Center"
-                                                                Text="Remove" />
+                                                                Text="移除" />
                                                         </StackPanel>
                                                     </MenuItem.Header>
                                                 </MenuItem>
@@ -1646,7 +1646,7 @@
                                             <TextBlock
                                                 Grid.Row="2"
                                                 Foreground="{actipro:ThemeResource ControlBackgroundBrushSolidWarning}"
-                                                Text="Note: Supports the following wildcards: '*' and '?'. The backslash character '\' escapes." />
+                                                Text="说明：支持以下通配符: '*' 和 '?'. '\' 用作转义符." />
                                         </Grid>
                                     </Grid>
                                 </TabItem>
@@ -1655,52 +1655,52 @@
                                         <TextBlock
                                             VerticalAlignment="Center"
                                             FontSize="12"
-                                            Text="Appearance" />
+                                            Text="界面" />
                                     </TabItem.Header>
                                     <StackPanel>
                                         <CheckBox
                                             VerticalAlignment="Center"
-                                            Content="Use Mica (Windows 11 only)¹"
+                                            Content="使用Mica (仅W11)¹"
                                             IsChecked="{Binding Source={x:Static Settings:SettingsFile.Instance}, Path=UseMica}"
                                             IsThreeState="False" />
                                         <CheckBox
                                             VerticalAlignment="Center"
-                                            Content="Dark Mode¹"
+                                            Content="暗色模式¹"
                                             IsChecked="{Binding Source={x:Static Settings:SettingsFile.Instance}, Path=DarkMode}"
                                             IsThreeState="False" />
                                         <TextBlock
                                             Margin="0,5,0,5"
                                             VerticalAlignment="Center"
                                             Foreground="{actipro:ThemeResource ControlBackgroundBrushSolidWarning}"
-                                            Text="¹ Restart VDF to apply changes" />
+                                            Text="¹ 重启VDF生效" />
                                         <CheckBox
                                             VerticalAlignment="Center"
-                                            Content="Show Thumbnail Column"
+                                            Content="显示缩略图列"
                                             IsChecked="{Binding Source={x:Static Settings:SettingsFile.Instance}, Path=ShowThumbnailColumn}"
                                             IsThreeState="False" />
                                         <CheckBox
                                             VerticalAlignment="Center"
-                                            Content="Show Path Column"
+                                            Content="显示路径列"
                                             IsChecked="{Binding Source={x:Static Settings:SettingsFile.Instance}, Path=ShowPathColumn}"
                                             IsThreeState="False" />
                                         <CheckBox
                                             VerticalAlignment="Center"
-                                            Content="Show Duration Column"
+                                            Content="显示时长列"
                                             IsChecked="{Binding Source={x:Static Settings:SettingsFile.Instance}, Path=ShowDurationColumn}"
                                             IsThreeState="False" />
                                         <CheckBox
                                             VerticalAlignment="Center"
-                                            Content="Show Format Column"
+                                            Content="显示格式列"
                                             IsChecked="{Binding Source={x:Static Settings:SettingsFile.Instance}, Path=ShowFormatColumn}"
                                             IsThreeState="False" />
                                         <CheckBox
                                             VerticalAlignment="Center"
-                                            Content="Show Audio Column"
+                                            Content="显示音频列"
                                             IsChecked="{Binding Source={x:Static Settings:SettingsFile.Instance}, Path=ShowAudioColumn}"
                                             IsThreeState="False" />
                                         <CheckBox
                                             VerticalAlignment="Center"
-                                            Content="Show Similarity Column"
+                                            Content="显示相似度列"
                                             IsChecked="{Binding Source={x:Static Settings:SettingsFile.Instance}, Path=ShowSimilarityColumn}"
                                             IsThreeState="False" />
                                     </StackPanel>
@@ -1713,7 +1713,7 @@
                             <TextBlock
                                 VerticalAlignment="Center"
                                 FontSize="12"
-                                Text="Log" />
+                                Text="日志" />
                         </TabItem.Header>
                         <Grid Margin="0,0,0,10" Background="{DynamicResource SystemControlBackgroundChromeBlackLowBrush}">
                             <Grid.RowDefinitions>
@@ -1733,7 +1733,7 @@
                                             <TextBlock
                                                 Margin="5,0,0,0"
                                                 VerticalAlignment="Center"
-                                                Text="Clear" />
+                                                Text="清除" />
                                         </StackPanel>
                                     </MenuItem.Header>
                                 </MenuItem>
@@ -1748,7 +1748,7 @@
                                             <TextBlock
                                                 Margin="5,0,0,0"
                                                 VerticalAlignment="Center"
-                                                Text="Save To File" />
+                                                Text="保存为文件" />
                                         </StackPanel>
                                     </MenuItem.Header>
                                 </MenuItem>
@@ -1779,7 +1779,7 @@
                             HorizontalAlignment="Center"
                             FontSize="14"
                             FontWeight="ExtraBold"
-                            Text="Please Wait" />
+                            Text="请稍候" />
                         <TextBlock
                             Name="LblBusyIndicator"
                             Margin="0,10,0,0"
